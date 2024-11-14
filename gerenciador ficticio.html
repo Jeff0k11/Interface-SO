@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #8925db;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(185, 101, 101, 0.2);
+            background-color: rgb(220, 200, 240);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #9f37e4;
+        }
+        th {
+            background-color: #000000;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>PID</th>
+                <th>Nome</th>
+                <th>CPU (%)</th>
+                <th>Memória (%)</th>
+            </tr>
+        </thead>
+        <tbody id="processTableBody">
+            <!-- Dados serão inseridos aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        // Função para gerar dados fictícios de processos
+        function gerarProcessos() {
+            const processos = [];
+            for (let i = 1; i <= 10; i++) {
+                processos.push({
+                    pid: 1000 + i,
+                    nome: "Processo" + i,
+                    cpu: (Math.random() * 100).toFixed(2),
+                    memoria: (Math.random() * 100).toFixed(2),
+                });
+            }
+            return processos;
+        }
+
+        // Função para atualizar a tabela com os processos
+        function atualizarTabela() {
+            const tabela = document.getElementById("processTableBody");
+            tabela.innerHTML = ""; // Limpa a tabela
+
+            const processos = gerarProcessos(); // Gera novos dados fictícios
+            processos.forEach(processo => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${processo.pid}</td>
+                    <td>${processo.nome}</td>
+                    <td>${processo.cpu}</td>
+                    <td>${processo.memoria}</td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        // Atualiza a tabela a cada 2 segundos
+        setInterval(atualizarTabela, 2000);
+
+        // Atualiza a tabela ao carregar a página
+        atualizarTabela();
+    </script>
+
+</body>
+</html>
